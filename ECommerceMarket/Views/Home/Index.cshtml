@@ -1,0 +1,27 @@
+﻿@{
+    List<Category> categories = ViewBag.Categories;
+}
+
+<div class="leftBar">
+    <ul class="nav">    
+        @for(int i = 0; i < categories.Count; i++)
+        {   
+            <li class="navItem"> <a class="item"> @categories[i].Name </a>     
+                <ul class="daughterNav">                
+                @for(int j = 0; j < categories[i].SubCategories.Count; j++)
+                {
+                    <li class="navItem">
+                        <a class="item" asp-controller="ProductView" asp-action="Index" asp-route-subCategoryId="@categories[i].SubCategories[j].Id">
+                            @categories[i].SubCategories[j].Name
+                        </a>
+                    </li>
+                }
+                </ul>
+            </li>
+        }
+    </ul>    
+</div>
+
+<div class="content">
+
+</div>

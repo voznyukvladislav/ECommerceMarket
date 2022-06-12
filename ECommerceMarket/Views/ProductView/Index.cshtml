@@ -1,0 +1,65 @@
+﻿@{
+    List<Category> categories = ViewBag.Categories;
+    SubCategory subCategory = ViewBag.SubCategory;    
+}
+
+<div class="leftBar">
+    <ul class="nav">    
+        @for(int i = 0; i < categories.Count; i++)
+        {   
+            <li class="navItem"> <a class="item"> @categories[i].Name </a>     
+                <ul class="daughterNav">                
+                @for(int j = 0; j < categories[i].SubCategories.Count; j++)
+                {
+                    <li class="navItem">
+                        <a class="item" asp-controller="ProductView" asp-action="Index" asp-route-subCategoryId="@categories[i].SubCategories[j].Id">
+                            @categories[i].SubCategories[j].Name
+                        </a>
+                    </li>
+                }
+                </ul>
+            </li>
+        }
+    </ul>    
+</div>
+
+<div class="content"> 
+    <div class="filters">
+
+    </div>
+
+    <div class="table">
+        @for(int i = 0; i < subCategory.Presets.Count; i++)
+        {
+            <table class="productsTable">
+                @{
+                    int colsNum = 4;
+                    int rowsNum = subCategory.Presets[i].Products.Count % colsNum == 0
+                    ? subCategory.Presets[i].Products.Count / colsNum 
+                    : subCategory.Presets[i].Products.Count / colsNum + 1;
+
+                    int l = 0;
+                }
+                @for(int j = 0; j < rowsNum; j++)
+                {
+                    <tr>                
+                        @for(int k = 0; k < colsNum; k++)
+                        {
+                            <td class="productsTableCell">
+                                @if(l < subCategory.Presets[i].Products.Count)
+                                {
+                                    <div class="productsTableCellDiv">
+                                        <img class="productPhoto" src="Photos/corei5.jpg">
+                                        <p class="productsTableText"> @subCategory.Presets[i].Products[l].Name </p>
+                                        <p> @subCategory.Presets[i].Products[l++].Price </p>
+                                        <a class="productsTableButton">Купити</a>
+                                    </div>
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+            </table>
+        }
+    </div>    
+</div>
