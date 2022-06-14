@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ECommerceMarket.Models
 {
     public partial class Attribute
     {
-        public Attribute()
-        {
-            PresetAttributes = new List<PresetAttribute>();
-            ProductAttributes = new List<ProductAttribute>();
-        }
-
+        [Key]
         public int Id { get; set; }
-        public string Name { get; set; } = null!;
-
-        public virtual List<PresetAttribute> PresetAttributes { get; set; }
-        public virtual List<ProductAttribute> ProductAttributes { get; set; }
+        public string Name { get; set; }
+        public bool ToFilter { get; set; }
+        public List<PresetAttribute> PresetAttributes { get; set; }
+        public List<ProductAttribute> ProductAttributes { get; set; }
     }
 }

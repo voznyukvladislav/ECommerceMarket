@@ -1,0 +1,78 @@
+﻿@using ECommerceMarket.Data
+@using System.Text.Json
+@{
+    List<Category> categories = ViewBag.Categories;
+    Product product = ViewBag.Product;
+}
+
+<script src="~/js/slider.js"></script>
+<script src="~/js/jQuery.js"></script>
+
+<div class="leftBar">
+    <ul class="nav">    
+        @for(int i = 0; i < categories.Count; i++)
+        {   
+            <li class="navItem"> <a class="item"> @categories[i].Name </a>     
+                <ul class="daughterNav">                
+                @for(int j = 0; j < categories[i].SubCategories.Count; j++)
+                {
+                    <li class="navItem">
+                        <a class="item" asp-controller="ProductView" asp-action="Index" asp-route-subCategoryId="@categories[i].SubCategories[j].Id">
+                            @categories[i].SubCategories[j].Name
+                        </a>
+                    </li>
+                }
+                </ul>
+            </li>
+        }
+    </ul>    
+</div>
+
+@{
+    List<PhotoDTO> photos = JsonSerializer.Deserialize<List<PhotoDTO>>(product.PhotosJson);
+}
+
+<div class="content overflow padding15">
+    <div class="photoContent" id="photoContent">
+        <div class="photo">
+        @*<img class="productPhotoView" id="productPhoto" src="@photos[0].FilePath"/>*@
+            <img class="productPhotoView" id="productPhoto" src="~/Photos/@photos[0].FilePath"/>
+        </div>
+        <div class="sliderButtons">
+            <table class="buttonsHolder">
+                <tr>
+                    <td> <a class="button" onclick="slide(@product.Id, 'false')"> ← </a> </td>
+                    <td> <a class="button" onclick="slide(@product.Id, 'true')"> → </a> </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+
+    <div class="attributes">
+        <table class="attributesTable">
+            <tr>
+                <td class="attributesTableAttributeNameCell">
+                    ЦІНА
+                </td>
+                <td class="attributesTableAttributeValueCell">
+                    @product.Price ₴
+                </td>
+            </tr>
+            @for(int j = 0; j < 3; j++) {
+                @for(int i = 0; i < product.ProductAttributes.Count; i++)
+                {
+                <tr>
+                    <td class="attributesTableAttributeNameCell">
+                        @product.ProductAttributes[i].Attribute.Name
+                    </td>
+                    <td class="attributesTableAttributeValueCell">
+                        @product.ProductAttributes[i].Value
+                    </td>
+                </tr>
+                }
+            }
+            
+        </table>
+    </div>
+</div>

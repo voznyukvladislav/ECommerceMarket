@@ -3,6 +3,10 @@
     SubCategory subCategory = ViewBag.SubCategory;    
 }
 
+<script src="~/js/dropdown.js"></script>
+<script src="~/js/viewProduct.js"></script>
+<script src="~/js/jQuery.js"></script>
+
 <div class="leftBar">
     <ul class="nav">    
         @for(int i = 0; i < categories.Count; i++)
@@ -24,9 +28,41 @@
 </div>
 
 <div class="content"> 
-    <div class="filters">
-
-    </div>
+    @*<div class="filters">
+        <p class="filtersHeader"> Фільтри </p>
+        <hr />
+        @for(int i = 0; i < subCategory.Presets.Count; i++)
+        {
+            @for(int j = 0; j < subCategory.Presets[i].PresetAttributes.Count; j++)
+            {
+                if(subCategory.Presets[i].PresetAttributes[j].Attribute.ToFilter)
+                {
+                    List<string> productAttributes = new List<string>();                    
+                    int l = 0;
+                    <div class="dropdown">
+                        <a class="dropdownButton" id="dropdownButton@(i)@(j)" onclick="showList('dropdownList@(i)@(j)', 'dropdownButton@(i)@(j)')"> @subCategory.Presets[i].PresetAttributes[j].Attribute.Name </a>
+                        <div class="dropdownContent" id="dropdownList@(i)@(j)">
+                            @for(int k = 0; k < subCategory.Presets[i].PresetAttributes[j].Attribute.ProductAttributes.Count; k++)
+                            {                        
+                                if(!productAttributes.Contains(subCategory.Presets[i].PresetAttributes[j].Attribute.ProductAttributes[k].Value))
+                                {
+                                    productAttributes.Add(subCategory.Presets[i].PresetAttributes[j].Attribute.ProductAttributes[k].Value);
+                                    <div class="checkboxListItem" 
+                                        onclick="checkAndSend('checkbox@(i)@(j)@(k)',
+                                            @subCategory.Presets[i].Id,
+                                            @subCategory.Presets[i].PresetAttributes[j].Attribute.Id,
+                                            @subCategory.Presets[i].PresetAttributes[j].Attribute.ProductAttributes[k].Value)">
+                                        <input name="" type="checkbox" class="checkbox" id="checkbox@(i)@(j)@(k)">
+                                        <label> @productAttributes[l++] </label>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>                    
+                }
+            }
+        }
+    </div>*@
 
     <div class="table">
         @for(int i = 0; i < subCategory.Presets.Count; i++)
@@ -48,11 +84,10 @@
                             <td class="productsTableCell">
                                 @if(l < subCategory.Presets[i].Products.Count)
                                 {
-                                    <div class="productsTableCellDiv">
+                                    <div class="productsTableCellDiv" onclick="viewProduct(@subCategory.Presets[i].Products[l].Id)">
                                         <img class="productPhoto" src="Photos/corei5.jpg">
                                         <p class="productsTableText"> @subCategory.Presets[i].Products[l].Name </p>
-                                        <p> @subCategory.Presets[i].Products[l++].Price </p>
-                                        <a class="productsTableButton">Купити</a>
+                                        <p> @subCategory.Presets[i].Products[l++].Price ₴ </p>
                                     </div>
                                 }
                             </td>

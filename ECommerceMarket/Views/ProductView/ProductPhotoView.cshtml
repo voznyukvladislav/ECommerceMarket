@@ -1,0 +1,23 @@
+﻿@using ECommerceMarket.Data
+@{
+    Product product = ViewBag.Product;
+    PhotoDTO photo = ViewBag.Photo;
+}
+
+<script src="~/js/slider.js"></script>
+<script src="~/js/jQuery.js"></script>
+
+<div class="photoContent" id="photoContent">
+    <div class="photo">
+    @*<img class="productPhotoView" id="productPhoto" src="@photos[0].FilePath"/>*@
+        <img class="productPhotoView" id="productPhoto" src="~/Photos/@photo.FilePath"/>
+    </div>
+    <div class="sliderButtons">
+        <table class="buttonsHolder">
+            <tr>
+                <td> <a class="button" onclick="slide(@product.Id, 'false')"> ← </a> </td>
+                <td> <a class="button" onclick="slide(@product.Id, 'true')"> → </a> </td>
+            </tr>
+        </table>
+    </div>
+</div>

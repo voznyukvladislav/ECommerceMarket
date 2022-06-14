@@ -17,7 +17,7 @@ body {
 .header {
     width: 100%;
     height: 7%;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(150, 150, 150);
     margin: 0;
     box-sizing: border-box;
     border: 1px solid black;
@@ -54,13 +54,12 @@ body {
     margin: 0;
     box-sizing: border-box;
     border: 1px solid black;
-    overflow-y: scroll;
 }
 
 .footer {
     width: 100%;
     height: 7%;
-    background-color: rgb(212, 212, 212);
+    background-color: rgb(150, 150, 150);
     margin: 0;
     box-sizing: border-box;
     border: 1px solid black;
@@ -125,10 +124,13 @@ body {
 
 /* Products table */
 .table {
-
+    width: 100%;
+    float: left;
+    height: 100%;
+    overflow-y: scroll;
 }
 .productsTable {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
 }
 .productsTableCell {
@@ -157,5 +159,153 @@ body {
 /* Products table end */
 
 /* Filters */
-    
+.filters {
+    width: 20%;
+    height: 100%;
+    overflow-y: scroll;
+    background-color: rgb(200, 200, 200);
+    float: left;
+}
+.filtersHeader {
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+}
+.dropdownButton {
+    display: block;
+    transition: 0.3s all;
+    text-transform: uppercase;
+    background-color: rgb(100, 100, 100);
+    cursor: pointer;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    color: white;
+    width: 100%;
+}
+    .dropdownButton:hover {
+        background-color: rgb(0, 255, 255);
+        color: black;
+    }
+.dropdownButtonSelected {
+    background-color: rgb(0, 255, 255);
+    color: black;
+}
+.dropdown {
+    border: 1px solid black;
+    margin: 0 auto;
+    background-color: white;
+    width: 80%;
+}
+.dropdownContent {
+    display: none;
+    width: 100%;
+    overflow-y: scroll;
+    max-height: 150px;
+}
+.show {
+    display: block;
+}
+.dropdownListItem {
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: 0.3s all;
+}
+    .dropdownListItem:hover {
+        background-color: rgb(220, 220, 220);
+    }
+.checkboxListItem {
+    display: block;
+    font-size: 16px;
+    transition: 0.3s all;
+    padding: 5px;
+    margin: 5px 5px 5px 5px;
+    cursor: pointer;
+}
+    .checkboxListItem:hover {
+        background-color: rgb(220, 220, 220);
+    }
 /* Filters end */
+
+/* Product page */
+.photo {
+    margin: 0 auto;
+    width: 75%;
+    height: 90%;
+}
+.attributes {
+    margin: 10px auto;
+    width: 90%;
+}
+.attributesTable {
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+}
+.attributesTableAttributeNameCell {
+    width: 50%;
+    height: 10%;
+    text-align: left;
+}
+.attributesTableAttributeValueCell {
+    width: 50%;
+    height: 10%;
+    text-align: right;
+}
+.productPhotoView {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 auto;
+}
+.overflow {
+    overflow-y: scroll;
+}
+.padding15 {
+    padding: 15px;
+}
+/* Product page end */
+
+/* Slider */
+.photoContent {
+    margin: 0 auto;
+    padding: 30px;
+    background-color: rgb(200, 200, 200);
+    width: 75%;
+    height: 60%;
+}
+.sliderButtons {
+    width: 75%;
+    height: 10%;
+    display: block;
+    margin: 0 auto;
+}
+.buttonsHolder {
+    margin: 0 auto;
+}
+.button {
+    display: block;
+    color: white;
+    background-color: white;
+    border-radius: 10px;
+    border-color: black;
+    transition: all 0.3s;
+    /*background-color:	#3d66fb; */
+    background-color: rgb(100, 100, 100);
+    margin: 7px 5px 7px 5px;
+    padding: 10px 50px 10px 50px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    .button:hover {
+        /*background-color: #1435ad;*/
+        background-color: rgb(255, 136, 0);
+    }
+/* Slider end */
