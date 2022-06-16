@@ -29,50 +29,75 @@
 </div>
 
 @{
-    List<PhotoDTO> photos = JsonSerializer.Deserialize<List<PhotoDTO>>(product.PhotosJson);
+    List<PhotoDTO> photos;
+    try
+    {
+        photos = JsonSerializer.Deserialize<List<PhotoDTO>>(product.PhotosJson);
+    } catch(Exception e)
+    {
+        photos = new List<PhotoDTO>();
+        photos.Add(new PhotoDTO { FilePath = "" });
+    }
 }
 
 <div class="content overflow padding15">
     <div class="photoContent" id="photoContent">
         <div class="photo">
         @*<img class="productPhotoView" id="productPhoto" src="@photos[0].FilePath"/>*@
-            <img class="productPhotoView" id="productPhoto" src="~/Photos/@photos[0].FilePath"/>
+            @*<img class="productPhotoView" id="productPhoto" src="~/Photos/@photos[0].FilePath"/>*@
+            <img class="productPhotoView" id="productPhoto" src="@photos[0].FilePath"/>
         </div>
         <div class="sliderButtons">
             <table class="buttonsHolder">
                 <tr>
-                    <td> <a class="button" onclick="slide(@product.Id, 'false')"> ← </a> </td>
-                    <td> <a class="button" onclick="slide(@product.Id, 'true')"> → </a> </td>
+                    <td> <a class="button" onclick="slide(@product.Id, 'false', 0)"> ← </a> </td>                    
+                    <td> <p class="photoCounter"> 1 / @photos.Count </p> </td>
+                    <td> <a class="button" onclick="slide(@product.Id, 'true', 0)"> → </a> </td>
                 </tr>
             </table>
         </div>
     </div>
     
-
+    @{
+        decimal currentPrice = product.Price - product.Discount.Value * product.Price;
+    }
     <div class="attributes">
         <table class="attributesTable">
             <tr>
                 <td class="attributesTableAttributeNameCell">
-                    ЦІНА
+                    <p>ЦІНА</p>
                 </td>
                 <td class="attributesTableAttributeValueCell">
-                    @product.Price ₴
+                    @if(currentPrice == product.Price)
+                    {
+                        <p>@product.Price.ToString("0") ₴</p>
+                    } else
+                    {
+                        <p> <s>@product.Price.ToString("0") ₴</s> @currentPrice.ToString("0") ₴</p>
+                    } 
                 </td>
             </tr>
-            @for(int j = 0; j < 3; j++) {
-                @for(int i = 0; i < product.ProductAttributes.Count; i++)
-                {
-                <tr>
+            <tr>
+                <td class="attributesTableAttributeNameCell">
+                    <p>Назва</p>
+                </td>
+                <td class="attributesTableAttributeValueCell">
+                    <p> @product.Name </p>
+                </td>
+            </tr>
+            @for(int i = 0; i < product.ProductAttributes.Count; i++)
+            {
+            <tr>
+                @if(!@String.IsNullOrEmpty(@product.ProductAttributes[i].Value)) {
                     <td class="attributesTableAttributeNameCell">
                         @product.ProductAttributes[i].Attribute.Name
                     </td>
                     <td class="attributesTableAttributeValueCell">
                         @product.ProductAttributes[i].Value
                     </td>
-                </tr>
-                }
-            }
-            
+                }                
+            </tr>
+            }            
         </table>
     </div>
 </div>

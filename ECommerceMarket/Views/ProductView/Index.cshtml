@@ -1,4 +1,6 @@
-﻿@{
+﻿@using System.Text.Json
+@using ECommerceMarket.Data
+@{
     List<Category> categories = ViewBag.Categories;
     SubCategory subCategory = ViewBag.SubCategory;    
 }
@@ -84,10 +86,30 @@
                             <td class="productsTableCell">
                                 @if(l < subCategory.Presets[i].Products.Count)
                                 {
+                                    List<PhotoDTO> productPhotos;
+                                    try 
+                                    { 
+                                        productPhotos = JsonSerializer.Deserialize<List<PhotoDTO>>(subCategory.Presets[i].Products[l].PhotosJson); 
+                                    } catch(Exception e)
+                                    {
+                                        productPhotos = new List<PhotoDTO>();
+                                        productPhotos.Add(new PhotoDTO { FilePath = "" });
+                                    }
+
+                                    decimal currentPrice = subCategory.Presets[i].Products[l].Price -
+                                    subCategory.Presets[i].Products[l].Discount.Value * subCategory.Presets[i].Products[l].Price;
                                     <div class="productsTableCellDiv" onclick="viewProduct(@subCategory.Presets[i].Products[l].Id)">
-                                        <img class="productPhoto" src="Photos/corei5.jpg">
+                                        @*<img class="productPhoto" src="Photos/@productPhotos[0].FilePath">*@
+                                        <img class="productPhoto" src="@productPhotos[0].FilePath">
                                         <p class="productsTableText"> @subCategory.Presets[i].Products[l].Name </p>
-                                        <p> @subCategory.Presets[i].Products[l++].Price ₴ </p>
+                                        @if(currentPrice == subCategory.Presets[i].Products[l].Price)
+                                        {
+                                            <p> @subCategory.Presets[i].Products[l++].Price.ToString("0") ₴ </p>
+                                        } else
+                                        {
+                                            <p><s>@subCategory.Presets[i].Products[l++].Price.ToString("0") ₴</s> @currentPrice.ToString("0") ₴ </p>
+                                        }
+
                                     </div>
                                 }
                             </td>

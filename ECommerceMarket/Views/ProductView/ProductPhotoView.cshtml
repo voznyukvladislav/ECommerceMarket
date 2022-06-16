@@ -2,6 +2,8 @@
 @{
     Product product = ViewBag.Product;
     PhotoDTO photo = ViewBag.Photo;
+    int currentPhotoOrder = ViewBag.CurrentPhotoOrder;
+    int photosCount = ViewBag.PhotosCount;
 }
 
 <script src="~/js/slider.js"></script>
@@ -10,13 +12,15 @@
 <div class="photoContent" id="photoContent">
     <div class="photo">
     @*<img class="productPhotoView" id="productPhoto" src="@photos[0].FilePath"/>*@
-        <img class="productPhotoView" id="productPhoto" src="~/Photos/@photo.FilePath"/>
+        @*<img class="productPhotoView" id="productPhoto" src="~/Photos/@photo.FilePath"/>*@
+        <img class="productPhotoView" id="productPhoto" src="@photo.FilePath"/>
     </div>
     <div class="sliderButtons">
         <table class="buttonsHolder">
             <tr>
-                <td> <a class="button" onclick="slide(@product.Id, 'false')"> ← </a> </td>
-                <td> <a class="button" onclick="slide(@product.Id, 'true')"> → </a> </td>
+                <td> <a class="button" onclick="slide(@product.Id, 'false', @currentPhotoOrder)"> ← </a> </td>
+                <td> <p class="photoCounter"> @(currentPhotoOrder + 1) / @photosCount </p> </td>
+                <td> <a class="button" onclick="slide(@product.Id, 'true', @currentPhotoOrder)"> → </a> </td>
             </tr>
         </table>
     </div>

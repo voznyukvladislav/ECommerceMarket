@@ -150,7 +150,11 @@ body {
     height: 100%;
 }
 .productPhoto {
-    width: 100%;
+    display: block;
+    max-height: 150px;
+    width: auto;
+    margin: 0 auto;
+    max-width: 100%;
 }
 .productsTableText {
     margin: 0;
@@ -277,6 +281,10 @@ body {
     background-color: rgb(200, 200, 200);
     width: 75%;
     height: 60%;
+}
+.photoCounter {
+    display: block;
+    margin 0 auto;
 }
 .sliderButtons {
     width: 75%;

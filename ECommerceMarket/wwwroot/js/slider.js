@@ -5,7 +5,7 @@
     }
 }
 
-function slide(productId, direction) {
+function slide(productId, direction, currentPhotoOrder) {
     if (productId) {
 		$.ajax({
 			type: "GET",
@@ -13,7 +13,8 @@ function slide(productId, direction) {
 			async: false,
 			data: {
 				productId: productId,
-				direction: direction
+				direction: direction,
+				currentPhotoOrder: currentPhotoOrder
 			},
 			success: function (data, status, xhr) {
 				//document.body.innerHTML = data;
